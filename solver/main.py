@@ -3,6 +3,7 @@ from typing import Dict
 
 from model.state import State
 from solver.input import InputParser
+from solver.output import OutputParser
 from strategy.api import SearchStrategy
 
 
@@ -39,10 +40,10 @@ def main():
     # TODO parse id_of_heurisic
     initial_state = State(input_parser.parse_board(), move_order=order)
 
-    print(initial_state)
     # TODO output = strategy.solve(initial_state)
 
-    # TODO print output
+    output = next(s for s in initial_state.next_states())  # fixme remove
+    print(OutputParser.parse(output))
 
 
 if __name__ == '__main__':
