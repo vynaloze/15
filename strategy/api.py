@@ -1,8 +1,8 @@
-from typing import Protocol
+from abc import ABC
 
 from model.state import State
 
 
-class SearchStrategy(Protocol):
+class SearchStrategy(ABC):
     def solve(self, initial_state: State) -> State:
         ...
