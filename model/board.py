@@ -18,7 +18,7 @@ class Board:
 
     def bottom_row(self) -> Iterable[int]:
         bottom_left = (self.rows - 1) * self.columns
-        return range(bottom_left, self.rows * self.columns, self.columns)
+        return range(bottom_left, self.rows * self.columns)
 
     def left_col(self) -> Iterable[int]:
         return range(0, self.rows * self.columns, self.columns)
