@@ -3,7 +3,7 @@ import unittest
 from model.board import Board
 from model.node import Node
 from model.state import State
-from strategy.iddfs import IDDFS
+from strategy.idfs import IDFS
 from model.move import MoveRight, MoveUp, MoveLeft, MoveDown
 
 
@@ -24,7 +24,7 @@ class TestState(unittest.TestCase):
         start_state = self.state2
 
         # when
-        solved_state = IDDFS().solve(start_state)
+        solved_state = IDFS().solve(start_state)
 
         # then
         self.assertListEqual(self.board1.content, solved_state.current_board.content)
@@ -39,7 +39,7 @@ class TestState(unittest.TestCase):
         )
 
         # when
-        solved_state = IDDFS().solve(start_state)
+        solved_state = IDFS().solve(start_state)
 
         # then
         self.assertEqual(target_state, solved_state)
@@ -48,7 +48,7 @@ class TestState(unittest.TestCase):
         start_state = self.state3
 
         # when
-        solved_state = IDDFS().solve(start_state)
+        solved_state = IDFS().solve(start_state)
 
         # then
         self.assertEqual(sorted(start_state.current_board.content), solved_state.current_board.content)
@@ -57,7 +57,7 @@ class TestState(unittest.TestCase):
         start_state = self.state33
 
         # when
-        solved_state = IDDFS().solve(start_state)
+        solved_state = IDFS().solve(start_state)
 
         # then
         self.assertEqual(sorted(start_state.current_board.content), solved_state.current_board.content)

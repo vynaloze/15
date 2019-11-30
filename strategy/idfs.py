@@ -2,7 +2,7 @@ from strategy.api import SearchStrategy
 from model.state import State
 
 
-class IDDFS(SearchStrategy):
+class IDFS(SearchStrategy):
     def solve(self, initial_state: State) -> State:
         for level in range(0, 101): # change 101 to some overhead memory limit
             to_visit = [initial_state]
