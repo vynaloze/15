@@ -22,8 +22,8 @@ def h0(state: State):
 def h1(state: State):
     board_sequence = state.current_board.content
     count = 0
-    for i in range(1, len(board_sequence)):
-        if i != board_sequence[i - 1].value:
+    for i in range(len(board_sequence)):
+        if i != board_sequence[i].value:
             count += 1
     return count
 
@@ -33,11 +33,10 @@ def h2(state: State):
     rows = state.current_board.rows
     cols = state.current_board.columns
     board_sequence = np.array(state.current_board.content)
-    shape = (rows, cols)
-    board_sequence.reshape(shape)
+    board_sequence = np.reshape(board_sequence, (rows, cols))
     count = 0
     for i in range(rows):
         for j in range(cols):
-            if board_sequence[i][j] != 0:
-                count += abs(i - ((board_sequence[i][j] - 1) // rows)) + abs(j - ((board_sequence[i][j] - 1) % cols))
+            if board_sequence[i][j].value != 0:
+                count += abs(i - ((board_sequence[i][j].value - 1) // rows)) + abs(j - ((board_sequence[i][j].value - 1) % cols))
     return count
