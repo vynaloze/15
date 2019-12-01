@@ -25,15 +25,14 @@ class State:
         inversions = self._inversions_count()
         rows, cols = self.current_board.rows, self.current_board.columns
 
-        if rows % 2 == 1 and inversions % 2 == 1:
-            return False
-        elif rows % 2 == 0:
-            if cols % 2 == 0 and ((inversions + self.current_board.free_node_row()) % 2 != 0):
-                return False
-            elif cols % 2 == 1 and ((inversions + self.current_board.free_node_row()) % 2 != 1):
-                return False
-
-        return True
+        if rows % 2 == 1 and inversions % 2 == 0:
+            return True
+        else:
+            if inversions % 2 == 1 and self.current_board.free_node_row() % 2 == 1:
+                return True
+            elif inversions % 2 == 0 and self.current_board.free_node_row() % 2 == 0:
+                return True
+        return False
 
     def _inversions_count(self) -> int:
         inversions = 0
