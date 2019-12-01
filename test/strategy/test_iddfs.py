@@ -5,6 +5,7 @@ from model.node import Node
 from model.state import State
 from strategy.idfs import IDFS
 from model.move import MoveRight, MoveUp, MoveLeft, MoveDown
+from strategy.heuristics import h0
 
 
 class TestState(unittest.TestCase):
@@ -24,7 +25,7 @@ class TestState(unittest.TestCase):
         start_state = self.state2
 
         # when
-        solved_state = IDFS().solve(start_state)
+        solved_state = IDFS().solve(start_state, h0)
 
         # then
         self.assertListEqual(self.board1.content, solved_state.current_board.content)
@@ -39,7 +40,7 @@ class TestState(unittest.TestCase):
         )
 
         # when
-        solved_state = IDFS().solve(start_state)
+        solved_state = IDFS().solve(start_state, h0)
 
         # then
         self.assertEqual(target_state, solved_state)
@@ -48,7 +49,7 @@ class TestState(unittest.TestCase):
         start_state = self.state3
 
         # when
-        solved_state = IDFS().solve(start_state)
+        solved_state = IDFS().solve(start_state, h0)
 
         # then
         self.assertEqual(sorted(start_state.current_board.content), solved_state.current_board.content)
@@ -57,7 +58,7 @@ class TestState(unittest.TestCase):
         start_state = self.state33
 
         # when
-        solved_state = IDFS().solve(start_state)
+        solved_state = IDFS().solve(start_state, h0)
 
         # then
         self.assertEqual(sorted(start_state.current_board.content), solved_state.current_board.content)

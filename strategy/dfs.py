@@ -3,7 +3,7 @@ from model.state import State
 
 
 class DFS(SearchStrategy):
-    def solve(self, initial_state: State) -> State:
+    def solve(self, initial_state: State, heuristic) -> State:
         to_visit = [initial_state]
         while to_visit:
             curr = to_visit.pop()

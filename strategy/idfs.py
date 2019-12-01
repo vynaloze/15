@@ -3,7 +3,7 @@ from model.state import State
 
 
 class IDFS(SearchStrategy):
-    def solve(self, initial_state: State) -> State:
+    def solve(self, initial_state: State, heuristic) -> State:
         for level in range(0, 101): # change 101 to some overhead memory limit
             to_visit = [initial_state]
             while to_visit:

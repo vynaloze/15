@@ -14,7 +14,7 @@ def g(state: State):
 
 
 # The h(x) = 0 heuristic
-def h0():
+def h0(state: State):
     return 0
 
 
