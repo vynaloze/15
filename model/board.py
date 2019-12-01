@@ -13,6 +13,11 @@ class Board:
     def free_node_position(self) -> int:
         return self.content.index(FreeNode)
 
+    def free_node_row(self) -> int:
+        for i in range(self.rows):
+            if self.free_node_position() < self.columns * (i+1):
+                return i
+
     def top_row(self) -> Iterable[int]:
         return range(self.rows)
 

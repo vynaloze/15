@@ -21,6 +21,28 @@ class State:
         self.board_history = board_history if board_history else []
         self._move_order = move_order if move_order else [MoveUp(), MoveDown(), MoveLeft(), MoveRight()]
 
+    def is_solvable(self) -> bool:
+        inversions = self._inversions_count()
+        rows, cols = self.current_board.rows, self.current_board.columns
+
+        if rows % 2 == 1 and inversions % 2 == 1:
+            return False
+        elif rows % 2 == 0:
+            if cols % 2 == 0 and ((inversions + self.current_board.free_node_row()) % 2 != 0):
+                return False
+            elif cols % 2 == 1 and ((inversions + self.current_board.free_node_row()) % 2 != 1):
+                return False
+
+        return True
+
+    def _inversions_count(self) -> int:
+        inversions = 0
+        for i in range(len(self.current_board.content)):
+            for j in range(i + 1, len(self.current_board.content)):
+                if self.current_board.content[i] > self.current_board.content[j]:
+                    inversions += 1
+        return inversions
+
     def next_states(self) -> Iterable['State']:
         for move in self._move_order:
             try:
