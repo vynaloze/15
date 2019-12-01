@@ -23,7 +23,7 @@ def h1(state: State):
     board_sequence = state.current_board.content
     count = 0
     for i in range(1, len(board_sequence)):
-        if i != board_sequence[i - 1]:
+        if i != board_sequence[i - 1].value:
             count += 1
     return count
 

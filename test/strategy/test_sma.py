@@ -18,12 +18,44 @@ class TestState(unittest.TestCase):
     state2 = State(board2)
     state3 = State(board3)
 
-    def test_board_only(self):
+    def test_whole_state_h0(self):
         # given
         start_state = self.state2
+        target_state = State(
+            self.board1,
+            [MoveLeft()],
+            [self.board2]
+        )
 
         # when
         solved_state = SMA().solve(start_state, h0)
 
         # then
-        self.assertListEqual(self.board1.content, solved_state.current_board.content)
+        self.assertEqual(target_state, solved_state)
+
+    def test_longer_h0(self):
+        start_state = self.state3
+
+        # when
+        solved_state = SMA().solve(start_state, h0)
+
+        # then
+        self.assertEqual(sorted(start_state.current_board.content), solved_state.current_board.content)
+
+    def test_longer_h1(self):
+        start_state = self.state3
+
+        # when
+        solved_state = SMA().solve(start_state, h1)
+
+        # then
+        self.assertEqual(sorted(start_state.current_board.content), solved_state.current_board.content)
+
+    def test_longer_h2(self):
+        start_state = self.state3
+
+        # when
+        solved_state = SMA().solve(start_state, h1)
+
+        # then
+        self.assertEqual(sorted(start_state.current_board.content), solved_state.current_board.content)
