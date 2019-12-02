@@ -17,7 +17,6 @@ class AStar(SearchStrategy):
                     best_score = 1000000
                     for child in state.next_states():
                         score = depth + heuristic(child)
-                        print(score)
                         if score < best_score:
                             best_score = score
                             best_states = [child]

@@ -5,16 +5,31 @@ from model.state import State
 from solver.input import InputParser
 from solver.output import OutputParser
 from strategy.api import SearchStrategy
+from strategy.astar import AStar
+from strategy.best_first import BestFirst
+from strategy.bfs import BFS
+from strategy.dfs import DFS
+from strategy.heuristics import h0, h1, h2
+from strategy.idfs import IDFS
+from strategy.sma import SMA
 
 
 def strategies() -> Dict[str, SearchStrategy]:
     return {
-        "bfs": SearchStrategy(),
-        "dfs": SearchStrategy(),
-        "idfs": SearchStrategy(),
-        "bf": SearchStrategy(),
-        "astar": SearchStrategy(),
-        "sma": SearchStrategy(),
+        "bfs": BFS(),
+        "dfs": DFS(),
+        "idfs": IDFS(),
+        "bf": BestFirst(),
+        "astar": AStar(),
+        "sma": SMA(),
+    }
+
+
+def heuristics() -> Dict[str, callable]:
+    return {
+        "h0": h0,
+        "h1": h1,
+        "h2": h2,
     }
 
 
@@ -27,22 +42,23 @@ def main():
     group.add_argument("-h", "--bf", dest="bf", help="Breadth-first search")
     group.add_argument("-a", "--astar", dest="astar", help="A* strategy")
     group.add_argument("-s", "--sma", dest="sma", help="SMA* strategy")
+    parser.add_argument("-he", "--heuristic", dest="heuristic", help="Heuristic id")
     args = parser.parse_args()
     params = [(key, value) for key, value in vars(args).items() if value]
     if not params:
         raise ValueError(f"Did not choose any option.\n{parser.format_help()}")
     strategy_name, value = params[0]
+    heuristic = None
+    if len(params) > 1:
+        param, heuristic_value = params[1]
+        heuristic = heuristics().get(heuristic_value)
 
     strategy = strategies().get(strategy_name)
-
     input_parser = InputParser()
     order = input_parser.parse_order(value) if strategy_name in ["bfs", "dfs", "idfs"] else None
-    # TODO parse id_of_heurisic
     initial_state = State(input_parser.parse_board(), move_order=order)
 
-    # TODO output = strategy.solve(initial_state)
-
-    output = next(s for s in initial_state.next_states())  # fixme remove
+    output = strategy.solve(initial_state, heuristic)
     print(OutputParser.parse(output))
 
 
