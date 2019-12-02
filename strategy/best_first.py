@@ -19,9 +19,12 @@ class BestFirst(SearchStrategy):
                     return state["state"]
                 else:
                     for child in state["state"].next_states():
-                        new_open_set.append({
-                            "state": child,
-                            "score": heuristic(child)
-                        })
+                        if child.current_board not in child.board_history:
+                            new_open_set.append({
+                                "state": child,
+                                "score": heuristic(child)
+                            })
+                        else:
+                            pass
             open_set = new_open_set
         return None
