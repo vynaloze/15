@@ -7,7 +7,7 @@ from model.node import Node
 
 def parse_moves(input: List[str], allow_duplicates: bool) -> List[Move]:
     _default_moves: List[Move] = [MoveUp(), MoveDown(), MoveLeft(), MoveRight()]
-    steps = [Step(s) for s in input]
+    steps = [Step(s) for s in input if s != '\n']
     if not allow_duplicates and len(steps) != len(set(steps)):
         raise ValueError(f"Duplicate steps found: {steps}")
     return [m for step in steps for m in _default_moves if m.step == step]

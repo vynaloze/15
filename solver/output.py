@@ -10,4 +10,4 @@ class OutputParser:
             return "-1\n\n"
         length = str(len(state.move_history))
         moves = "".join([move.step.value for move in state.move_history])
-        return f"{length}\n{moves}\n"
+        return f"{length}\n{moves}"
