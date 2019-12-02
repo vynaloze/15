@@ -42,20 +42,15 @@ def main():
     group.add_argument("-h", "--bf", dest="bf", help="Breadth-first search")
     group.add_argument("-a", "--astar", dest="astar", help="A* strategy")
     group.add_argument("-s", "--sma", dest="sma", help="SMA* strategy")
-    parser.add_argument("-he", "--heuristic", dest="heuristic", help="Heuristic id")
     args = parser.parse_args()
     params = [(key, value) for key, value in vars(args).items() if value]
     if not params:
         raise ValueError(f"Did not choose any option.\n{parser.format_help()}")
     strategy_name, value = params[0]
-    heuristic = None
-    if len(params) > 1:
-        param, heuristic_value = params[1]
-        heuristic = heuristics().get(heuristic_value)
-
     strategy = strategies().get(strategy_name)
     input_parser = InputParser()
     order = input_parser.parse_order(value) if strategy_name in ["bfs", "dfs", "idfs"] else None
+    heuristic = heuristics().get(value) if strategy_name in ["bf", "astar", "sma"] else None
     initial_state = State(input_parser.parse_board(), move_order=order)
 
     output = strategy.solve(initial_state, heuristic)

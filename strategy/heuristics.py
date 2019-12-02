@@ -38,5 +38,5 @@ def h2(state: State):
     for i in range(rows):
         for j in range(cols):
             if board_sequence[i][j].value != 0:
-                count += abs(i - ((board_sequence[i][j].value - 1) // rows)) + abs(j - ((board_sequence[i][j].value - 1) % cols))
+                count += abs(i - (board_sequence[i][j].value // rows)) + abs(j - (board_sequence[i][j].value % cols))
     return count
